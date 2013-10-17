@@ -5,6 +5,18 @@ import android.app.Activity;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
+	
+	public class OpenGLES20 extends Activity {
+		private GLSurfaceView mGLView;
+		
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			
+			mGLView = new MyGLSurfaceView(this);
+			setContentView(mGLView);
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
