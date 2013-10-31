@@ -8,6 +8,7 @@ import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 
 public class MyRenderer implements GLSurfaceView.Renderer {
 	
@@ -34,6 +35,15 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 		GLES20.glShaderSource(shader, shaderCode);
 		GLES20.glCompileShader(shader);
 		
+
+		// Get the compilation status.
+		final int[] compileStatus = new int[1];
+		GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
+
+		// If the compilation failed, delete the shader.
+		if (compileStatus[0] == 0)
+			 Log.d("SHADER ERROR", GLES20.glGetShaderInfoLog(shader));
+		
 		return shader;
 		
 	}
@@ -51,9 +61,11 @@ class Triangle {
             "precision mediump float;" +
             "uniform vec4 vColor;" +
             "void main() {" +
-            "  gl_FragColor = vColor;" +
+            "  gl_xFragColor = vColor;" +
             "}";
 	
+        
+        
 	private final FloatBuffer vertexBuffer;
 	private final int mProgram;
 	private int mPositionHandle;
